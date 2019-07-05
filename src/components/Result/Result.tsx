@@ -2,7 +2,7 @@ import * as React from 'react'
 import Loader from 'react-loader-spinner'
 
 interface IProps {
-    result: string
+    result: string,
     filelength: any
 }
 

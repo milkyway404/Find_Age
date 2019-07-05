@@ -13,7 +13,7 @@ h1{
     padding-top: 5px;
     padding-bottom: 0px;
     height: 51vh;
-    background-color: #202125;
+    background-color: #37afff;
     border-radius: 20px;
     color: white;
 }
@@ -31,6 +31,7 @@ h1{
 }
 
 .dropZoneText {
+    font-size: 25px;
     height: 50vh;
     display: flex;
     justify-content: center;

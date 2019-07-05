@@ -62,7 +62,36 @@ export default class DropArea extends React.Component<IProps, IState>{
                         if(json.length<1){
                             this.props.setResults("Sorry no face detected",this.state.imageFiles.length)
                         }else{
-                            this.props.setResults("Age is "+json[0].faceAttributes.age,this.state.imageFiles.length)
+                            let i: number;
+                            let j: number;
+                            j = 0;
+                            
+                            let output: string[];
+                            let locations: number[];
+                            locations = [0];
+                            // implement a sorting algorithm to find faces left to right
+                            output = [""];
+                            // find locations
+                            for (i = 0; i < json.length; i++) {
+                                locations[i] = json[i].faceRectangle.left;
+                            }
+                            // sort by location
+                            locations = locations.sort((n1,n2) => n1 - n2);
+                            // insert message for user
+                            output[j++] = "The ages from left to right are: "
+                            // put the age values in order according to left -> right
+                            for (const n of locations) {
+                                for (i = 0; i < json.length; i++) {
+                                    if (n === json[i].faceRectangle.left) {
+                                        if (output.length !== json.length) {
+                                            output[j++] = json[i].faceAttributes.age + ", ";
+                                        } else {
+                                            output[j++] = json[i].faceAttributes.age;
+                                        }
+                                    }
+                                }
+                            }
+                            this.props.setResults(output,this.state.imageFiles.length)
                         }
                     })
                 }
@@ -79,7 +108,8 @@ export default class DropArea extends React.Component<IProps, IState>{
                                 {
                                     this.state.imageFiles.length > 0 ?
                                         <div>{this.state.imageFiles.map((file) => <img className="image1" key={file.name} src={file.preview} />)}</div> :
-                                        <p>Try dropping some files here, or click to select files to upload.</p>
+                                        <p>Try dropping some files here, or click to select files to upload. <br/><br/>
+                                        <b><i>We can now detect ages of all faces in images with multiple faces!!!</i></b></p>
                                 }
                             </div>
                         </ReactDropzone>

@@ -14,8 +14,7 @@ class App extends React.Component<{}, IState> {
     super(props)
     this.state = {
       filelength:0,
-      result: "",
-      
+      result: ""
     }
   }
 
